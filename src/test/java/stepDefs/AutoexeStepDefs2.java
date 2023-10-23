@@ -5,142 +5,114 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import page.AutoExeAccountInfoPage;
 import page.AutoExeNewUserSignUpPage;
 import page.AutoExercisesHomePage;
 
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class AutoexeStepDefs extends BaseUtil {
+public class AutoexeStepDefs2 extends BaseUtil {
     private BaseUtil base;
-    public AutoexeStepDefs(BaseUtil base){this.base=base;}
 
+    public AutoexeStepDefs2(BaseUtil base) {
+        this.base = base;
+    }
     @Given("I am on autoexercise home page")
     public void i_am_on_autoexercise_home_page() {
-        // Write code here that turns the phrase above into concrete actions
         base.driver.manage().window().maximize();
-//        base.driver.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
+        base.driver.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
         base.driver.get("https://automationexercise.com/");
+
     }
     @Then("I Verify that home page is visible successfully")
     public void i_verify_that_home_page_is_visible_successfully() {
-        // Write code here that turns the phrase above into concrete actions
-        AutoExercisesHomePage autoExercisesHomePage = new AutoExercisesHomePage(base.driver);
-        assertThat(autoExercisesHomePage.IsHomePageVisble(),equalTo(true));
+        assertThat(base.driver.findElement(By.id("header")).isDisplayed(),equalTo(true));
+
+    }
+    @Then("Click on Contact Us button")
+    public void click_on_contact_us_button() {
+        base.driver.findElement(By.xpath("//a[@href='/contact_us']")).click();
+
+    }
+    @Then("Verify GET IN TOUCH is visible")
+    public void verify_get_in_touch_is_visible() {
+        assertThat(base.driver.findElement(By.xpath("//h2[contains(text(),'Get In Touch')]")).isDisplayed(),equalTo(true));
+
+    }
+    @Then("Enter {string}, {string}, {string} and {string}")
+    public void enter_and(String name, String email, String subject, String message) {
+        base.driver.findElement(By.xpath("//input[@data-qa='name']")).sendKeys(name);
+        base.driver.findElement(By.xpath("//input[@data-qa='email']")).sendKeys(email);
+        base.driver.findElement(By.xpath("//input[@data-qa='subject']")).sendKeys(subject);
+        base.driver.findElement(By.id("message")).sendKeys(message);
+
+    }
+    //        SENDKEYS METHOD
+    @Then("I click on choose file to upload document")
+    public void i_click_on_choose_file_to_upload_document() throws AWTException {
+//        base.driver.findElement(By.xpath("//input[@type='file']")).sendKeys("C:\\Users\\samod\\Downloads\\OLUWASHEYI_CV.pdf");
+//         base.driver.findElement(By.xpath("//input[@name='upload_file']")).sendKeys("C:\\Users\\samod\\Downloads\\OLUWASHEYI_CV.pdf");
+
+
+
+//        USING ROBOT CLASS METHODS
+        WebElement UploadFile = base.driver.findElement(By.xpath("//input[@type='file']"));
+        JavascriptExecutor js = (JavascriptExecutor)base.driver;
+        js.executeScript("arguments[0].click();",UploadFile);  // CLICK ACTION ON THE BUTTON
+
+//        1] COPY THE PATH
+//        2] CTRL + V
+//        3] ENTER
+        Robot rb = new Robot();
+        rb.delay(2000);
+
+//        PUT PATH TO FILE IN A CLIPBOARD
+        StringSelection ss = new StringSelection("C:\\Users\\samod\\Downloads\\SAMSON_RESUMEE.pdf");
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
+
+//        CTROL + V
+        rb.keyPress(KeyEvent.VK_CONTROL); // PRESS ON CTRL KEY ON KEYBOARD
+        rb.keyPress(KeyEvent.VK_V); // PRESS ON CTRL V KEY ON KEYBORD
+        rb.delay(2000);
+
+        rb.keyRelease(KeyEvent.VK_CONTROL);
+        rb.keyRelease(KeyEvent.VK_V);
+        rb.delay(2000);
+
+//        ENTER
+        rb.keyPress(KeyEvent.VK_ENTER);
+        rb.keyRelease(KeyEvent.VK_ENTER);
+
+    }
+    @Then("Click Submit button")
+    public void click_submit_button() {
+        base.driver.findElement(By.xpath("//input[@data-qa='submit-button")).click();
+
+    }
+    @Then("Click OK button")
+    public void click_ok_button() {
+        base.driver.switchTo().alert().accept();
 
 
     }
-    @Then("Click on {string} button")
-    public void click_on_button(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        AutoExercisesHomePage autoExercisesHomePage = new AutoExercisesHomePage(base.driver);
-        autoExercisesHomePage.clickOnSignSignUpButton();
-    }
-    @Then("I Verify {string} is visible")
-    public void i_verify_is_visible(String string) {
-        AutoExeNewUserSignUpPage autoExeNewUserSignUpPage = new AutoExeNewUserSignUpPage(base.driver);
-        assertThat(autoExeNewUserSignUpPage.IsNewUseSignUpPageVisble(),equalTo(true));
-    }
-    @Then("I Enter {string} and {string}")
-    public void i_enter_and(String Nme, String Email) {
-        // Write code here that turns the phrase above into concrete actions
-        AutoExeNewUserSignUpPage autoExeNewUserSignUpPage = new AutoExeNewUserSignUpPage(base.driver);
-        autoExeNewUserSignUpPage.EnterName(Nme);
-        autoExeNewUserSignUpPage.EnterEmail(Email);
-    }
-    @Then("Click {string} button")
-    public void click_button(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        AutoExeNewUserSignUpPage autoExeNewUserSignUpPage = new AutoExeNewUserSignUpPage(base.driver);
-        autoExeNewUserSignUpPage.ClickOnSignUpButton();
-    }
-    @Then("I Verify that {string} is visible")
-    public void i_verify_that_is_visible(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        AutoExeAccountInfoPage autoExeAccountInfoPage = new AutoExeAccountInfoPage(base.driver);
-        assertThat(autoExeAccountInfoPage.IsAccountInfoPageVisble(),equalTo(true));
-    }
-    @When("Fill details: Title, {string} and {string}")
-    public void fill_details_title_and(String pWord, String string) {
-        // Write code here that turns the phrase above into concrete actions
-        AutoExeAccountInfoPage autoExeAccountInfoPage = new AutoExeAccountInfoPage(base.driver);
-        autoExeAccountInfoPage.ClickOnGenderButton();
-        autoExeAccountInfoPage.EnterPassword(pWord);
-        autoExeAccountInfoPage.EnterDayofBirth();
-        autoExeAccountInfoPage.EnterMonthOfBirth();
-        autoExeAccountInfoPage.EnterYearOfBirth();
+    @Then("Verify success message {string} is visible")
+    public void verify_success_message_is_visible(String string) {
+       assertThat(base.driver.findElement(By.xpath("//div[@class='status alert alert-success']")).isDisplayed(),equalTo(true));
 
     }
-    @When("Select checkbox {string}")
-    public void select_checkbox(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        AutoExeAccountInfoPage autoExeAccountInfoPage = new AutoExeAccountInfoPage(base.driver);
-        autoExeAccountInfoPage.ClickOnSignUpLettersButton();
-        autoExeAccountInfoPage.ClickOnReceiveOfferButton();
-    }
-    @When("Fill details: {string}, {string}, {string}, {string}, {string}, {string}, {string}, {string}, {string}")
-    public void fill_details(String fName, String lName, String coyName, String addre, String countryName, String staNmae, String citNmae, String zipCde, String num) {
-        // Write code here that turns the phrase above into concrete actions
-        AutoExeAccountInfoPage autoExeAccountInfoPage = new AutoExeAccountInfoPage(base.driver);
-        autoExeAccountInfoPage.EnterFirstName(fName);
-        autoExeAccountInfoPage.EnterLastName(lName);
-        autoExeAccountInfoPage.EnterCompanyName(coyName);
-        autoExeAccountInfoPage.EnterAddress(addre);
-        autoExeAccountInfoPage.EnterCountryName(countryName);
-        autoExeAccountInfoPage.EnterStateName(staNmae);
-        autoExeAccountInfoPage.EnterCityName(citNmae);
-        autoExeAccountInfoPage.EnterZipCodeNum(zipCde);
-        autoExeAccountInfoPage.EnterMobileNum(num);
-    }
-    @When("Click {string}")
-    public void click(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        AutoExeAccountInfoPage autoExeAccountInfoPage = new AutoExeAccountInfoPage(base.driver);
-        autoExeAccountInfoPage.ClickOnCreateAccButton();
-    }
-    @Then("Verify that {string} is visible")
-    public void verify_that_is_visible(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        AutoExeAccountInfoPage autoExeAccountInfoPage = new AutoExeAccountInfoPage(base.driver);
-        assertThat(autoExeAccountInfoPage.AccountCreatedIsDispalyed(),equalTo(true));
-    }
-    @Then("Click Continue button")
-    public void click_continue_button() {
-        // Write code here that turns the phrase above into concrete actions
-        AutoExeAccountInfoPage autoExeAccountInfoPage= new AutoExeAccountInfoPage(base.driver);
-        autoExeAccountInfoPage.ClickOnContinueButton();
-
+    @Then("Click Home button")
+    public void click_home_button() {
+        base.driver.findElement(By.xpath("//a[@class='btn btn-success']")).click();
     }
 
-    @And("I Enter correct {string} and {string}")
-    public void iEnterCorrectAnd(String eMail, String pWord) {
-        AutoExeNewUserSignUpPage autoExeNewUserSignUpPage = new AutoExeNewUserSignUpPage(base.driver);
-        autoExeNewUserSignUpPage.EnterEmailAddress(eMail);
-        autoExeNewUserSignUpPage.EnterPassWord(pWord);
 
-    }
-
-    @And("I Click login button")
-    public void iClickLoginButton() {
-        AutoExeNewUserSignUpPage autoExeNewUserSignUpPage = new AutoExeNewUserSignUpPage(base.driver);
-        autoExeNewUserSignUpPage.ClickOnLoginButton();
-    }
-
-    @When("Enter incorrect {string} and {string}")
-    public void enter_incorrect_and(String wEmail, String wPWord) {
-        // Write code here that turns the phrase above into concrete actions
-        AutoExeNewUserSignUpPage autoExeNewUserSignUpPage = new AutoExeNewUserSignUpPage(base.driver);
-        autoExeNewUserSignUpPage.EnterWrongEmailAdd(wEmail);
-        autoExeNewUserSignUpPage.EnterWrongPassword(wPWord);
-
-    }
-    @Then("Verify error {string} is visible")
-    public void verify_error_is_visible(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        AutoExeNewUserSignUpPage autoExeNewUserSignUpPage = new AutoExeNewUserSignUpPage(base.driver);
-        assertThat(autoExeNewUserSignUpPage.IsWrongEmailandPwordDisplayed(),equalTo(true));
-    }
 }

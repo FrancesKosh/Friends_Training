@@ -4,86 +4,57 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class NewtoursRegistrationPage extends BasePage {
-    public NewtoursRegistrationPage(WebDriver driver) {
+public class NewtoursFlightPage extends BasePage {
+    public NewtoursFlightPage(WebDriver driver) {
         super(driver);
     }
 
-    @FindBy(xpath = "//input[@name=\"firstName\"]")
-    private WebElement EnterFirstNameLocator;
-    @FindBy(xpath = "//input[@name=\"lastName\"]")
-    private WebElement EnterLastNameLocator;
-@FindBy(id="userName")
-private WebElement EnterEmailLocator;
-@FindBy(xpath ="//input[@name=\"phone\"]")
-private WebElement EnterPhoneNumber;
-@FindBy(xpath = "//input[@name=\"address1\"]")
-private WebElement EnterAddress;
-@FindBy(xpath = "//input[@name=\"city\"]")
-private WebElement EnterCity;
-@FindBy(xpath = "//input[@name=\"state\"]")
-private WebElement EnterState;
-@FindBy(xpath = "//input[@name=\"postalCode\"]")
-private WebElement EnterPostalCode;
-@FindBy(xpath = "//select[@name=\"country\"]")
-private WebElement SelectCountry;
-@FindBy(xpath = "//input[@id=\"email\"]")
-private WebElement EnterUserName;
-@FindBy(xpath = "//input[@name=\"password\"]")
-private WebElement EnterPassword;
-@FindBy(xpath = "//input[@name=\"confirmPassword\"]")
-private WebElement EnterConfirmPWrd;
-@FindBy(xpath = "//input[@name=\"submit\"]")
-private WebElement ClickOnSubmit;
+    @FindBy(xpath = "//a[contains(text(),'Flights')]")
+    private WebElement ClickOnFlightLocator;
 
-    @FindBy(xpath = "//b[contains(text(),'user')]")
-    private WebElement NoteElement;
+//    @FindBy(xpath = "//img[@width=\"492\"]")
+    @FindBy(xpath = "//img[@src=\"images/mast_flightfinder.gif\"]")
+    ////img[@width='492']
+    private WebElement FlightFinderIsDisplayed;
+    @FindBy(xpath = "//input[@value=\"roundtrip\"]")
+    private WebElement RoundTripButton;
+    @FindBy(xpath = "//select[@name=\"fromMonth\"]")
+    private WebElement OnMonthLocator;
+    @FindBy(xpath = "//select[@name=\"fromDay\"]")
+    private WebElement OnDayLocator;
+    @FindBy(xpath = "//select[@name=\"toMonth\"]")
+    private WebElement ToMonthLocator;
+    @FindBy(xpath = "//select[@name='toDay']")
+    private WebElement ToDayLocator;
+    @FindBy(xpath = "//input[@value=\"Coach\"]")
+    private WebElement EconomyButton;
 
 
-    public void enterFirstName(String fName){
-       EnterFirstNameLocator.sendKeys(fName);
+
+
+    public void cLickOnFlight(){
+        ClickOnFlightLocator.click();
     }
-public void enterLastName(String lName){
-        EnterLastNameLocator.sendKeys(lName);
-}
-public void enterEmailAdd(String eAdd){
-        EnterEmailLocator.sendKeys(eAdd);
-}
-public void enterPhoneNumber(String pNum){
-        EnterPhoneNumber.sendKeys(pNum);
-}
-public void enterAddress(String aDd){
-        EnterAddress.sendKeys(aDd);
-}
-public void enterCity(String cIty){
-        EnterCity.sendKeys(cIty);
-}
-public void enterState(String sTate){
-        EnterState.sendKeys(sTate);
-}
-public void enterPostalCode(String pCode){
-        EnterPostalCode.sendKeys(pCode);
-}
-public void selectCountry(){
-        SelectCountry.isSelected();
+    public boolean iSFlightFinderIsDisplayed(){
+        return FlightFinderIsDisplayed.isDisplayed();
+    }
+    public void cLickOnRoundTrip(){
+        RoundTripButton.isSelected();
+    }
+    public void oNMonth(){
+        OnMonthLocator.isSelected();
+    }
+    public void oNDay(){
+        OnDayLocator.isSelected();
+    }
+    public void oTMonth(){
+        ToMonthLocator.isSelected();
+    }
+    public void oTDay(){
+        ToDayLocator.isSelected();
+    }
+    public void eConomy(){
+        EconomyButton.isSelected();
+    }
 
-//    public void selectByVisibleText(){
-//        Select select = new Select(EnterCountry);
-//        select.selectByVisibleText("IRELAND");
-}
-public void enterUserName(String uName){
-        EnterUserName.sendKeys(uName);
-}
-public void enterPassword(String pWrd){
-        EnterPassword.sendKeys(pWrd);
-}
-public void enterConfirmPwrd(String cPwrd){
-        EnterConfirmPWrd.sendKeys(cPwrd);
-}
-public void clickOnSubmit(){
-        ClickOnSubmit.click();
-}
-public boolean iSNoteElementDisplayed(){
-        return NoteElement.isDisplayed();
-}
 }

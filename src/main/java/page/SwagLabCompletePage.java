@@ -4,34 +4,22 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class SwagLabHomePage1 extends BasePage {
-    public SwagLabHomePage1(WebDriver driver) {
+public class SwagLabCompletePage extends BasePage {
+    public SwagLabCompletePage(WebDriver driver) {
         super(driver);
     }
 
-    @FindBy(xpath = "//div[contains(text(),'Swag Labs')]")
-    private WebElement swagLabHomePageIsVisible;
-    @FindBy(id="user-name")
-    private WebElement enterUserName;
-    @FindBy(id ="password")
-    private WebElement enterPassword;
-    @FindBy(id="login-button")
-    private WebElement clickOnLogInButton;
+//    @FindBy(xpath ="//h2[contains(text(),'Thank you for your order!')]")
+    @FindBy(xpath ="//h2[@class='complete-header']")
+    private WebElement thankYouLocator;
 
 
-    public boolean IsSwagLabHomePageVisble() {
-        return swagLabHomePageIsVisible.isDisplayed();
+//    public boolean IsThankYouPageVisble() {
+//        return thankYouLocator.isDisplayed();
+//    }
 
-    }
-    public void EnterUserName(){
-        enterUserName.sendKeys("standard_user");
-    }
-    public void setEnterPassword(){
-        enterPassword.sendKeys("secret_sauce");
-    }
-    public void ClickOnLogInButton(){
-        clickOnLogInButton.click();
-    }
-
+    public String getMessage() {
+        return thankYouLocator.getText();
+}
 }
 

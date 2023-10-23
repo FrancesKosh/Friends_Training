@@ -4,34 +4,38 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class SwagLabHomePage1 extends BasePage {
-    public SwagLabHomePage1(WebDriver driver) {
+public class SwagLabProductPage extends BasePage {
+    public SwagLabProductPage(WebDriver driver) {
         super(driver);
     }
+@FindBy(xpath ="//span[contains(text(),'Products')]")
+    private WebElement productPageDisplayed;
 
-    @FindBy(xpath = "//div[contains(text(),'Swag Labs')]")
-    private WebElement swagLabHomePageIsVisible;
-    @FindBy(id="user-name")
-    private WebElement enterUserName;
-    @FindBy(id ="password")
-    private WebElement enterPassword;
-    @FindBy(id="login-button")
-    private WebElement clickOnLogInButton;
+    @FindBy(xpath = "//a[@id='item_4_title_link']")
+    private WebElement clickOnBackPack;
+    @FindBy(xpath ="//button[@id='add-to-cart-sauce-labs-backpack']")
+    private WebElement clickOnAddtoCart;
+    @FindBy(xpath ="//a[@class='shopping_cart_link']")
+    private WebElement clickOnCart;
+    @FindBy(xpath ="//button[@data-test='checkout']")
+    private WebElement clickOnCheckout;
 
 
-    public boolean IsSwagLabHomePageVisble() {
-        return swagLabHomePageIsVisible.isDisplayed();
 
+    public boolean IsProductPageDisplayed(){
+        return productPageDisplayed.isDisplayed();
     }
-    public void EnterUserName(){
-        enterUserName.sendKeys("standard_user");
+    public void ClickOnBackPack(){
+        clickOnBackPack.click();
     }
-    public void setEnterPassword(){
-        enterPassword.sendKeys("secret_sauce");
+    public void ClickOnAddToCart(){
+        clickOnAddtoCart.click();
     }
-    public void ClickOnLogInButton(){
-        clickOnLogInButton.click();
+    public void ClickONCart(){
+        clickOnCart.click();
     }
-
+    public void CLickOnCheckout(){
+        clickOnCheckout.click();
+    }
 }
 

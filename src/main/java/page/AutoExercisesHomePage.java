@@ -4,14 +4,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class AutoexeHomePage extends BasePage{
-    public AutoexeHomePage(WebDriver driver) {
+public class AutoExercisesHomePage extends BasePage{
+    public AutoExercisesHomePage(WebDriver driver) {
         super(driver);
     }
     @FindBy(id = "header")
     private WebElement homePageIsVisible;
     @FindBy(xpath = ".//a[@href='/login']")
     private WebElement signUpLoginLocator;
+    @FindBy(xpath = "//b[contains(text(),'sheyi')]")
+    private WebElement loginAsUserIsDisplayed;
+    @FindBy(xpath = "//a[@href='/contact_us']")
+    private WebElement clickOnContactUsLocator;
 
 
     public void clickOnSignSignUpButton(){
@@ -19,10 +23,12 @@ public class AutoexeHomePage extends BasePage{
 
     }
     public boolean IsHomePageVisble(){
-        return homePageIsVisible.isDisplayed();
+    return homePageIsVisible.isDisplayed();
+
+  }
+    public void ClickOnContactsUs(){
+        clickOnContactUsLocator.click();
     }
-
-
 
     }
 

@@ -4,34 +4,48 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class SwagLabHomePage1 extends BasePage {
-    public SwagLabHomePage1(WebDriver driver) {
+public class SwagLabCheckoutPage extends BasePage {
+    public SwagLabCheckoutPage(WebDriver driver) {
         super(driver);
     }
 
-    @FindBy(xpath = "//div[contains(text(),'Swag Labs')]")
-    private WebElement swagLabHomePageIsVisible;
-    @FindBy(id="user-name")
-    private WebElement enterUserName;
-    @FindBy(id ="password")
-    private WebElement enterPassword;
-    @FindBy(id="login-button")
-    private WebElement clickOnLogInButton;
+    @FindBy(xpath = "//input[@placeholder=\"First Name\"]")
+    private WebElement firstNameLocator;
+    @FindBy(xpath = "//input[@placeholder=\"Last Name\"]")
+    private WebElement lastNameLocator;
+    @FindBy(xpath = "//input[@placeholder=\"Zip/Postal Code\"]")
+    private WebElement zipCodeLocator;
+    @FindBy(xpath = "//input[@type=\"submit\"]")
+    private WebElement clickOnContinue;
 
+    @FindBy(xpath = "//h3[@ data-test=\"error\"]")
+    private WebElement errorMsg;
 
-    public boolean IsSwagLabHomePageVisble() {
-        return swagLabHomePageIsVisible.isDisplayed();
+    @FindBy(xpath = "//h3[@ data-test=\"error\"]")
+    private WebElement fNameErrorMsg;
 
-    }
-    public void EnterUserName(){
-        enterUserName.sendKeys("standard_user");
-    }
-    public void setEnterPassword(){
-        enterPassword.sendKeys("secret_sauce");
-    }
-    public void ClickOnLogInButton(){
-        clickOnLogInButton.click();
+    public void EnterFirstName() {
+        firstNameLocator.sendKeys("Busayomi");
     }
 
-}
+    public void EnterLastName() {
+        lastNameLocator.sendKeys("Kosh");
+    }
+
+    public void EnterZipCode() {
+        zipCodeLocator.sendKeys("MK8 1AE");
+    }
+
+    public void ClickOnContinue() {
+        clickOnContinue.click();
+    }
+
+    public String getMessage() {
+        return errorMsg.getText();
+    }
+
+    //public String getMessage(){
+      //  return fNameErrorMsg.getText();
+    }
+
 

@@ -4,31 +4,34 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class AutoExercisesHomePage extends BasePage{
-    public AutoExercisesHomePage(WebDriver driver) {
+public class SwagLabHomePage1 extends BasePage {
+    public SwagLabHomePage1(WebDriver driver) {
         super(driver);
     }
-    @FindBy(id = "header")
-    private WebElement homePageIsVisible;
-    @FindBy(xpath = ".//a[@href='/login']")
-    private WebElement signUpLoginLocator;
-    @FindBy(xpath = "//b[contains(text(),'sheyi')]")
-    private WebElement loginAsUserIsDisplayed;
-    @FindBy(xpath = "//a[@href='/contact_us']")
-    private WebElement clickOnContactUsLocator;
+
+    @FindBy(xpath = "//div[contains(text(),'Swag Labs')]")
+    private WebElement swagLabHomePageIsVisible;
+    @FindBy(id="user-name")
+    private WebElement enterUserName;
+    @FindBy(id ="password")
+    private WebElement enterPassword;
+    @FindBy(id="login-button")
+    private WebElement clickOnLogInButton;
 
 
-    public void clickOnSignSignUpButton(){
-        signUpLoginLocator.click();
-
-    }
-    public boolean IsHomePageVisble(){
-    return homePageIsVisible.isDisplayed();
-
-  }
-    public void ClickOnContactsUs(){
-        clickOnContactUsLocator.click();
-    }
+    public boolean IsSwagLabHomePageVisble() {
+        return swagLabHomePageIsVisible.isDisplayed();
 
     }
+    public void EnterUserName(){
+        enterUserName.sendKeys("standard_user");
+    }
+    public void setEnterPassword(){
+        enterPassword.sendKeys("secret_sauce");
+    }
+    public void ClickOnLogInButton(){
+        clickOnLogInButton.click();
+    }
+
+}
 
